@@ -1,0 +1,122 @@
+--------- GIT ---------------
+
+> Git is a version control system(VCS)
+> Developed by LINUX by Linus Torvalds
+> Created for development of Linux Terminal
+> VCS is used to record changes made to file made over time
+> It gives us the ability to revert the files or set of files you made changes in
+> There are 3 types of Version Control System :- 
+	-> Local Version Control System :- 
+		> This method is used to copy files into another directory
+		> They keep files with timestamp, suppose we have a file x.txt and we made some changes to it then we can use local VCS to make a backup of file in some other directory before making changes
+		> Used when only one developer is working
+	-> Centralized Version Control System :- 
+		> Used to collaborate with other developers. It has a single server that have all versioned file and number of clients who can take file from central place
+		> Subversion and Preforce are its examples
+		> Difference between this and local one is that , this one has a centralized server
+		> Problem :- If central server has problem, no one can access file
+	-> Distributed Version Control System :- 
+		> In this clients can access project's whole history(in above one only latest version of file can be accessed)
+		> Every clone is full backup
+
+
+-------------------------------- Configuration --------------------------------
+
+> Git performs most of operations in local files and local resources
+
+> 3 States in GIT :- Modified, Stages, commited
+	1. Modified :- Means that file is changed but changes are not committed yet
+	2. Staged :- Means that you have marked the modified file in its current version to go into your next commit snapshot
+	3. Commited :- Data is safely stored in your local database
+
+	NOTE :- So suppose we have a git repository, now we can read our project from our repo and when we make changes, we can stage a file, and after that when we commit all the files staged will be commited and our project will be modified
+
+> Working Directory :- Working tree is a single checkout of one version of project. These files are pulled out of compressed database in GIT directory and placed on disk for you to use or modify. Simply, it is the current project we are working on
+
+> Staging AREA :- It is the area which contains information about what will go into our next commit. Technically it is named as index
+
+> Repository AREA :- It is basically where git stores metadata and object database for your project.
+
+> GIT Workflow :- We modify our files in our working tree, we can selectively stage those changes which we want to be the part of our next commit, and then we commit which takes files in the staging area and snapshot them permanently in your GIT Directory
+
+> GIT configuration levels and Setting username and email address in git :- 
+	-> We need to do this so that git can identify who has made changes to file
+	-> Git has different configuration files to determine the behaviour, it has multiple levels of configuration :- 
+		> Repository/Project Level (Local)  (config file can be found at :- repository/.git/config)
+		> User Account (Global Level) (config file can be found at :- Users/manua/.gitconfig)
+		> System Level (Git Installation) (config file can be found at :- usr/local/etc/gitconfig)
+
+	Git looks for the email and username firsly at repo level, if not found then at user account level and if it is not found there too then it looks at system level
+
+	-> Set config Command :- git config --anyLevel user.email value
+		> Setting user.email at local level :- git config --local user.email your_email_address
+		> Setting user.name at local level :- git config --local user.name your_name
+		
+	-> To check current configured user :- git config user.email
+	-> Check complete git config :- Git config --list --show-origin  (This command will give you information about all the configured users)
+
+	-> Remove a specific setting for a specific level of config :- Git config --anyLevel --unset user.name
+	-> Remove specific section :- Git config --anyLevel --remove-section user
+
+
+	-> You can also change configuration in .git folder created in project repository by the command "git init". That .git folder has config file in it which can be directly edited
+
+-> NOTE :- To see main command :-  git help
+	   To see all commands :- git help -a 	(Press q to exit from it)
+	   To get help with specific command lets say for init :- git help init
+
+-> NOTE :- As soon as we use git init, one branch is created that is called as master branch
+
+---------------- Initialize, Add, Stage, Commit and Changes ----------------------
+
+-> "git status" command gives information about our current branch, our commits and info about staged files
+
+-> Git add :-  
+	> Untracked file :- File that has been recently create but not yet staged is untracked file, to move it to Staging area we use "git add fileName.extenstion"  
+	> On using git add command our file is moved to staging area that is, it will be saved to git repo in our next commit
+	> To remove file from staging area :- git rm --cached <file>
+
+-> git commit :- 
+	> To commit the files in staging area to git repository
+	> When you do git commit then you will have screen to enter message where you can add information about commit. To escape from this screen press esc and then :wq
+	> To do git commit with message :- git commit -m "YOUR MESSAGE"  , this will not show that screen in second point
+
+> Saving changes :- 
+	-> Suppose we have an index.html file :- First of all we used "git init" to intitialize git folder, now we use "git add index.html" and then "git commit". This saved our index.html to git repo. Now suppose we make some change to index.html (We can use vim editor "vim index.html" and then if we do "git status" then it will show index.html as modified. Now we will again do "git add index.html", and now if we do "git status" , it shows changes to be commited. Then we finally do :- git commit -m "first change"  . Now our first change is committed too.
+	-> To see our commits :- git log
+		> HEAD in this is nothing just the pointer to current branch
+		> It will show when commit was made and by whom
+	
+
+------------------ Diff Command -------------------------
+
+> Diff command is used in git to track the diff. between the changes made on a file
+> It takes 2 inputs and reflects differences between them
+> To know difference between working area and staging area :- git diff
+> To know difference between staging area and repository area :- git diff --staged
+> To know difference between working area and repository area :- git diff head
+
+-> NOTE :- We can use vi fileName.extension to create file
+
+---------------- How Git stores data ----------------
+
+> Git stored data in form of object (key and values)
+> Value is contents of file
+> You give the value and it will calculate a key for it
+> Key value is calculated with SHA1 algo, It gives us 20 byte hexadecimal digit
+> Not only contents, directories etc have their own SHA1
+> Every object has its own SHA1
+
+> This will show us the encoded content :-
+	 git cat-file yourHashCodeValue -p
+
+ Suppose we get this :- 990acb13ac3b4faf9e39aa7f0fb8c33093060a17 from our commit
+ and if we do :- git cat-file 990acb13ac3b4faf9e39aa7f0fb8c33093060a17 -p ,then this will return us another hash value (f561cdc727b57e5645697231b7a17a131213b4bf) and message of our commit
+
+	Now if we run git cat-file f561cdc727b57e5645697231b7a17a131213b4bf -p , this will return us channel.txt name(It is the file which we created) and another hash value (03f7b124fb1a840d5268d21f95a7d0bef6f0e07c)
+
+	And if we run git cat-file 03f7b124fb1a840d5268d21f95a7d0bef6f0e07c -p ,this will return us content of channel.txt
+
+	NOTE :- When you will go to object folder in .git folder you will find three folders named 99, f5, 03 , these 3 folders name are on the basis of first 2 digit of hash value
+
+ 
