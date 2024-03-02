@@ -119,4 +119,12 @@
 
 	NOTE :- When you will go to object folder in .git folder you will find three folders named 99, f5, 03 , these 3 folders name are on the basis of first 2 digit of hash value
 
- 
+---------------- Rename and Restore Files ---------------
+
+> Suppose we have a file channel.txt and we rename it to channel.html using command :- "mv channel.txt channel.html", now if you check "git status" you will notice that it shows that channe.txt is deleted and channel.html is new untracked file, but in reality we know that no file is deleted it is only renamed. Now if we add channel.html to track(using git add channel.html) and then if we add channel.txt and now if we check "git status", it will show that renamed : channel.txt -> channel.html and then we can commit changes
+
+> But if we use "git mv channel.txt channel.html" instead of "mv channel.txt channel.html" it will automatically rename, we will not need to add and we can simply commit.
+
+> Restore :- 
+	> To remove a file from a staging area :- git restore --staged fileName.extension
+	> If we want to revert changes what we have did in working area :- git restore fileName.extension
