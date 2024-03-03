@@ -72,7 +72,7 @@
 -> "git status" command gives information about our current branch, our commits and info about staged files
 
 -> Git add :-  
-	> Untracked file :- File that has been recently create but not yet staged is untracked file, to move it to Staging area we use "git add fileName.extenstion"  
+	> Untracked file :- File that has been recently created/modified/deleted but not yet staged is untracked file, to move it to Staging area we use "git add fileName.extenstion"  
 	> On using git add command our file is moved to staging area that is, it will be saved to git repo in our next commit
 	> To remove file from staging area :- git rm --cached <file>
 
@@ -82,7 +82,7 @@
 	> To do git commit with message :- git commit -m "YOUR MESSAGE"  , this will not show that screen in second point
 
 > Saving changes :- 
-	-> Suppose we have an index.html file :- First of all we used "git init" to intitialize git folder, now we use "git add index.html" and then "git commit". This saved our index.html to git repo. Now suppose we make some change to index.html (We can use vim editor "vim index.html" and then if we do "git status" then it will show index.html as modified. Now we will again do "git add index.html", and now if we do "git status" , it shows changes to be commited. Then we finally do :- git commit -m "first change"  . Now our first change is committed too.
+	-> Suppose we have an index.html file in our project folder:- First of all we used "git init" to intitialize git folder, now we use "git add index.html" and then "git commit". This saved our index.html to git repo. Now suppose we make some change to index.html (We can use vim editor "vim index.html" and then if we do "git status" then it will show index.html as modified. Now we will again do "git add index.html", and now if we do "git status" , it shows changes to be commited. Then we finally do :- git commit -m "first change"  . Now our first change is committed too.
 	-> To see our commits :- git log
 		> HEAD in this is nothing just the pointer to current branch
 		> It will show when commit was made and by whom
@@ -128,3 +128,51 @@
 > Restore :- 
 	> To remove a file from a staging area :- git restore --staged fileName.extension
 	> If we want to revert changes what we have did in working area :- git restore fileName.extension
+
+--------------------- Branches in GIT ------------------
+
+> As we do "git init" main branch is intialized which is known as master
+> When we need to create branch :- Suppose there are multiple developers involved in project, and one team is working on the some feature, if that team directly changes the code on master branch, then if some issue came then whole code will get affected, thus we will create a separate branch for that feature and when feature will be completely developed and tested then we can combine this branch with master branch
+> To create a branch :- git branch branchName
+> To create a branch and move to it :- git checkout -b branchName
+> To move to specific branch :- git checkout branchName
+> To get names of all branches :- git branch
+> Renaming branch :- First go to that branch and then "git branch -m newName"
+> Delete Branch :- git branch -d branchName
+> NOTE :- If we made some changes to branch which are not yet committed and then we try to delete that branch, it will give error. To delete such branchs use :- "git branch -D branchName"
+
+
+> Eg :- Suppose we have our working directory named as EcommerceProject, it has a master branch. We created index.txt in it and committed it. Now we create a new branch login_feature using "git checkout -b login_feature" and now in this branch we create new folder login and in that we created login.txt and committed it. Now if we will perform ls command on login_feature branch we will see index.txt and login folder. But if we move to master branch using "git checkout master" then it will show us only index.html. It is because, login feature is implemented in different branch. And now if we perform some commit in master branch that will not be visible in login_feature branch
+
+> Branches are in heads folder in refs folder which is in .git folder
+
+> How branches access data :- When we use "cat .git/refs/heads/branchName" we will see a hash code which basically represents the last commit hashcode. And we know that commits are stored in object folder. HEAD gives information about current branch in which we are. HEAD is present in .git folder
+
+> MERGING 2 BRANCHES :- 	
+	-> git merge branchName
+	->  When feature development is created we can merge 2 branches. Suppose we have completed login_feature functionality then we can go to master branch and use "git merge login_feature" then our master will have all functionality implemented in login_feature
+
+	-> Fast Forward Merge :- When there is no new commit in master branch between the timeperiod of when login_feature branch was created and and when it was merged with master, then Fast Forward Merge happens.  Eg :- Suppose we created a branch login_feature and moved to it and performed some commit and then we move to master and merge these 2 then it is fast forward merge
+
+	-> Recursive Merge :- When there exists new commits in master branch between the timeperiod of when login_feature branch was created and and when it was merged with master, then Recursive Merge happens. Eg :- Suppose we created a branch login_feature and moved to it and performed some commit and then we move to master and perform some commit to master branch and now if we merge these 2 then it is recursive merge
+
+	-> Merge Conflict :- 
+		> Suppose we changed a file in master branch and we changed same file in other branch, then conflict will raise, it will ask us to decide which one to merge
+		> So when we will do "git merge branchName" it will show us automatice merging failed, and now if we check "git status" it will show unmerged paths
+		> Now to resolve conflict, open the file causing merging error, in that you will be able to see the changes from different branches, you can keep the change which you want and erase other ones manually.
+		> After removing others we can do "git add ." and then "git commit" and our files will be merged
+
+		> We can abort merging by git merge --abort
+
+------------------ Git Rebase -------------
+
+> It is alternative of merging
+> It updates one branch by applying commits of one branch on top of commits of another branch
+> It is used to clean up our local commit history.
+> Merge preserves history while rebase doesn't preserve history
+> Rebase shouldn't be used when branch is public and shared to all developers
+> It can be used :- 
+	-> when we want to clean up our commit history before sharing our branch
+	-> Pulling changes from another branch without merge
+
+> Command :- git rebase branchName
