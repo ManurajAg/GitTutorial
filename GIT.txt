@@ -176,3 +176,28 @@
 	-> Pulling changes from another branch without merge
 
 > Command :- git rebase branchName
+
+----------- Interactive Rebasing --------------
+
+> To combine multiple commits into single commit
+
+> Suppose we created a new branch called as new_feature and now while developing that feature we performed multiple commits like starting, bug fixes and later completion commit, now when we want to merge we don't want multiple commits to be merged, we want to combine all those commit as one and then merge, for this interactive rebasing is used. 
+
+> Command :- git rebase -i branchName
+
+> Once we use above command then it will show us the commits with which we can perform different ops like pick/squash/reword etc. 
+
+------------------ Ammend ---------------------
+
+> Modifying Commit
+> Suppose we are working on some file index.txt and we made a commit for it, but after that we encountered that it has some issue, so now we have 2 options, first is we create a new commit and second is we modify old commit.
+> Creating new commit is already discussed
+> To Modify our latest commit :- git commit --ammend 
+> NOTE :- Use this only when ur data is in local system, if it is public it can result in loss of data
+
+---------------- GIT Cherry Pick ----------
+
+> It is used when we want to apply particular commit from one branch into another branch
+> It is used if we don't want to merge the whole branch and want only some of commits
+> It can cause duplicate commits
+> 
