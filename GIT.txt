@@ -255,3 +255,40 @@ Now move to master branch and do some changes in index.txt file and then move to
 > To delete all stash :- git stash clear
 
 > To create stash changes into separate branch :- git stash branch branchName  			(You can also use git stash branch branchName stashHashCode to apply stash changes to particular branch)
+
+
+----------------------- Git Checkout -------------------------------
+
+> It can lot of things like :- 
+	1. Moves from one branch to other
+	2. Creates new branch if not existed and moves head to that branch
+	3. Also not only branch, it also shifts commit hash if you observe
+
+	-> Note when we are on detached head (That is our head is pointing to a commit) then:- 
+		> We can do "git checkout -", this will return to the last pointer to which head was pointing
+		> We can do "git checkout -b new_branch" , this will create a new branch from that commit
+	
+	-> NOTE :- Eg :-  git checkout Head~anyNum	this will move our head to the commit anyNum steps behind the current head commit
+
+	-> Suppose we have multiple changes and we want to update only one then we can :- git checkout head fileName.txt, this will only save changes made in that file and will leave other changes as it is in staged area
+
+
+------------- Restore and Switch Commands -----------------
+
+> Switch :- 
+	-> git switch branchName :- This moves head to branchName
+	-> git switch -c newBranch :- This creates new branch and moves head to that
+	-> Difference between switch and checkout
+		1. You cannot move to commit using switch, you can use checkout to move to commit. 
+	
+> Restore :- 
+	-> git restore fileName.extension :- This command can be used to discard changes in working directory
+	-> git restore --staged fileName.extension :- This command will move file from staging area to working area
+	-> git restore --source hashCodeOfCommit fileName.extension :- This command will change the fileName.extension file to how the file is in the given hashCodeCommit
+
+------------- Revert Command ------------------
+
+-> If we have mistakenly commited and we want to revert the commit we use Revert command
+-> Command :- git revert hashValueOfCommit
+-> Difference between reset and revert :- If we do reset "git reset 3sdf23", then all the changes made in these commit will be removed and this commit will also be remove that is you will not be able to see this commit in "git log", but if you do "git revert 3sdf23" then firstly the changes made in that commit will be removed and a new commit will be made which specifies that revert is done and also commit 3sdf23 will be visible in "git log"
+-> We should use reset command when on local machine but once code is public and accessible to other reset command can cause confilct, so use revert
