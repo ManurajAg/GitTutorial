@@ -200,4 +200,36 @@
 > It is used when we want to apply particular commit from one branch into another branch
 > It is used if we don't want to merge the whole branch and want only some of commits
 > It can cause duplicate commits
-> 
+> Suppose we have a feature and it has versions 1.0, 2.0, 3.0, now while working on 3.0 we came to know about a bug which existed even in 1.0 and 2.0 so we fixed that bug and made a commit in 3.0 but now we want that bug to be fixed in 1.0 and 2.0 too, so for that we can use that same commit , switch to that version branch and use "git cherry-pick hashCodeOfCommit" and that commit will be made to other branch
+
+> Command :- git cherry-pick hashCodeOfCommit
+
+----------- GIT Head -------------
+
+> When we are working we only checkout one branch at a time, this is called head branch
+> Git makes note of this branch and stores it in .git/Head as reference for the path of branch
+> Head is basically reference to branch. It can also reference to commit.
+> If head points to specific commit then it is called as detached head
+> Working with detached HEAD :- Suppose we have a hash value 23sase and our head is pointing to this, and now we do 2 more commits, now if we move to master branch and now if we want to access those 2 commits, we can do so only via their hash value :- "git checkout hashVal", if we don't know their hash value we will not be able to access them. One another way is that after doing those 2 commits and before switching to master, we can create a branch, so those 2 commits will be in that branch which can be later merged/used.
+
+--------------- GIT Reset --------------------
+
+> Undoing Changes
+> It is complex as it does different things in different context
+> If we see commit, merge, rebase, these commands do not explicity move the branch, they are moved as a side effect of creating new commit. So to explicitly move branch we use reset
+> Options in reset :- 
+	-> --hard :- Moves the files both to working area and staging area
+	-> --mixed :- Moves the files only to staging area
+	-> --soft :- Does not move the files
+> Reset moves the current branch and optionally copies the data from repositories to working or staging areas
+> To move head to some commit :- git checkout hashValOfCommit
+> To move branch to some commit :- git reset hashValOfCommit
+
+> Eg :- Suppose we created index.txt file and commited it and later on we created feature.txt file and committed it too but now we came to know that feature.txt is not needed right now so we can move to index.txt file commit(suppose its hashcode is 32sfg2) :- git reset 32sfg2 --hard , so this will remove feature.txt file from our working directory and staging area
+
+> We can use reset to move files from staging area to unstaged area :- git reset head --mixed
+
+
+----------------- Git Stash --------------------
+
+> Sometimes we want to switch branch, but we are working on an incomplete part of current project, and we don't want to make a commit of half done work. Git Stash will allow you to do so 
