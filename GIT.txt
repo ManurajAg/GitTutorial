@@ -158,7 +158,7 @@
 
 	-> Merge Conflict :- 
 		> Suppose we changed a file in master branch and we changed same file in other branch, then conflict will raise, it will ask us to decide which one to merge
-		> So when we will do "git merge branchName" it will show us automatice merging failed, and now if we check "git status" it will show unmerged paths
+		> So when we will do "git merge branchName" it will show us automatic merging failed, and now if we check "git status" it will show unmerged paths
 		> Now to resolve conflict, open the file causing merging error, in that you will be able to see the changes from different branches, you can keep the change which you want and erase other ones manually.
 		> After removing others we can do "git add ." and then "git commit" and our files will be merged
 
@@ -233,3 +233,25 @@
 ----------------- Git Stash --------------------
 
 > Sometimes we want to switch branch, but we are working on an incomplete part of current project, and we don't want to make a commit of half done work. Git Stash will allow you to do so 
+> When we try to switch branch without committing changes, then 2 things happen :- 
+	1. Git will not allow to switch the branch and asks to cmiit or stash the changes
+	2. Switches to the branch carrying changes
+
+> So stash allows us to change branch without committing the incomplete code
+> Stash means to store something in hidden place
+
+> Eg :- Suppose we have 2 branches master and feature, so if we create index.txt in master and commit it and then create feature branch, then feature branch will have index file and 1 commit, and now if we change to feature branch and create feature.txt there, then if we move to master branch it will allow us, and now if we check git status in master branch we will see feature.txt as modified. Now move to feature branch and commit feature.txt. This thing proved the second point that switches to branch carrying changes.
+Now move to master branch and do some changes in index.txt file and then move to feature branch and do some changes in its index.txt file too, now without committing if u try to switch branch then it will show error, as git automatically identified that changes has been made in index.txt file in master branch too, thus changes in feature branch will be lost, so it will ask us to either commit or stash
+
+> Command :- git stash		//Modifies and creates new stash
+> To save to stash with custom name :- git stash save anyName
+> To see the list of stash :- git stash list
+> To retrieve the latest stash change:- git stash pop 	//it will remove the change from stash and the incomplete changes made will be visible again 
+> If we want that item should be staged again but should not be removed from stash list then use :- git stash apply
+> To check changes in latest stash :- git stash show -p		(You can also use git stash show stashHashCode -p to see change of particular stash)
+
+> To delete latest stash :- git stash drop		(You can also use git stash drop stashHashCode to delete particular stash)
+
+> To delete all stash :- git stash clear
+
+> To create stash changes into separate branch :- git stash branch branchName  			(You can also use git stash branch branchName stashHashCode to apply stash changes to particular branch)
