@@ -1,0 +1,35 @@
+---------------- GITHUB -------------------
+
+> Cloud Hosting Platforms for git repositories 
+> Git is a version control system that runs on local machine, you don't need internet and account to use it, while github allows to host repo in cloud and is easier to collaborate with other people.
+> Alternatives to github :- bitbucket, gerrit
+> Github was founded in 2008, it is largest host of source code
+> Github is mainly used for collaboration. It is also for open source project
+
+----------------- GIT Clone ------------------
+
+> To work with the repositories hosted in github we need to get the local copy into the computer
+> For that we need URL of repository
+> Command :- git clone urlOfRepository
+> Git will retrieve all files associated with it and will copy them to local machine
+> In addition to that git initializes a new repo on your machine giving you access to the full history of cloned project
+> You should not clone repository in an already existing git repository(that is the folder in which you are cloning should not have .git folder which means it is not a git repo)
+> Eg :- Suppose you want to clone https://github.com/JDStraughan/html5-snake.git, so you will go to a folder and open terminal/git bash in it and do "git clone https://github.com/JDStraughan/html5-snake.git" , this will fetch the code from github repo in a folder and you can access it in your local machine and modify as per your need	
+
+> You don't need permission to clone code from github if it is public but to push changes you need to have permissions
+
+------------ Github with ssh ------------------
+
+> We can connect to github using 2 methods :- 
+	1. Using https :- If we are getting data from github using https then it will always prompt us for username and password in order to check user authentication
+	2. Using ssh :- It does not prompt you everytime. It authenticates user on the basis of key stored. Using ssh protocol you can connect and authenticate to remote servers and services. With ssh keys you can connect to github without supplying your username and personal access token at each visit
+
+> To implement ssh keys in system :- 
+	1. Create key using SSH key pair :- ssh-keygen -t ed25519 -C "youremail@example.com"
+	2. Ensure ssh-agent is running :- eval `ssh-agent -s`
+	3. Add SSH key to ssh agent :- ssh-add ~/.ssh/id_ed25519
+	4. Go to github profile and add ssh key pair in settings(Settings -> SSH and GPG Keys -> New SSH Keys -> Enter key(Key is available at location recieved from command in 3rd point)-> Add key)
+	NOTE :-When you will go to location you will see one private key and one public key, public key has extension .pub, open public key in notepad
+	5. To check whether we are authenticated or not :- ssh -T git@github.com
+
+	NOTE :- ed25519 is an algorithm
