@@ -65,7 +65,7 @@
 	   To see all commands :- git help -a 	(Press q to exit from it)
 	   To get help with specific command lets say for init :- git help init
 
--> NOTE :- As soon as we use git init, one branch is created that is called as master branch
+-> NOTE :- As soon as we use git init, .git folder is created but master branch will not be created untill you make a commit 
 
 ---------------- Initialize, Add, Stage, Commit and Changes ----------------------
 
@@ -82,7 +82,7 @@
 	> To do git commit with message :- git commit -m "YOUR MESSAGE"  , this will not show that screen in second point
 
 > Saving changes :- 
-	-> Suppose we have an index.html file in our project folder:- First of all we used "git init" to intitialize git folder, now we use "git add index.html" and then "git commit". This saved our index.html to git repo. Now suppose we make some change to index.html (We can use vim editor "vim index.html" and then if we do "git status" then it will show index.html as modified. Now we will again do "git add index.html", and now if we do "git status" , it shows changes to be commited. Then we finally do :- git commit -m "first change"  . Now our first change is committed too.
+	-> Suppose we have an index.html file in our project folder:- First of all we used "git init" to intitialize git folder, now we use "git add index.html" and then "git commit". This saved our index.html to git repo. Now suppose we make some change to index.html (We can use vim editor "vi index.html" and then if we do "git status" then it will show index.html as modified. Now we will again do "git add index.html", and now if we do "git status" , it shows changes to be commited. Then we finally do :- git commit -m "first change"  . Now our first change is committed too.
 	-> To see our commits :- git log
 		> HEAD in this is nothing just the pointer to current branch
 		> It will show when commit was made and by whom
@@ -149,7 +149,7 @@
 > How branches access data :- When we use "cat .git/refs/heads/branchName" we will see a hash code which basically represents the last commit hashcode. And we know that commits are stored in object folder. HEAD gives information about current branch in which we are. HEAD is present in .git folder
 
 > MERGING 2 BRANCHES :- 	
-	-> git merge branchName
+	-> Command :- git merge branchName
 	->  When feature development is created we can merge 2 branches. Suppose we have completed login_feature functionality then we can go to master branch and use "git merge login_feature" then our master will have all functionality implemented in login_feature
 
 	-> Fast Forward Merge :- When there is no new commit in master branch between the timeperiod of when login_feature branch was created and and when it was merged with master, then Fast Forward Merge happens.  Eg :- Suppose we created a branch login_feature and moved to it and performed some commit and then we move to master and merge these 2 then it is fast forward merge
