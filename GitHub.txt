@@ -33,3 +33,51 @@
 	5. To check whether we are authenticated or not :- ssh -T git@github.com
 
 	NOTE :- ed25519 is an algorithm
+
+------------ Creating Repo in Github --------------
+
+> How do I get my code on github :- 
+	1. We have an existing repo :- If we have an repo locally then create a new repo on github, connect your local repo(add a remote), push ur changes to git
+	2. Start from scratch :- If no local repo, then create new repo on github, clone it to your machine, do some work locally and push changes to github
+
+--------- Connecting Github repo to local machine ----------
+
+> To connect our local repo to github repo. we need to tell our local machine about remote repo, for that we need to setup destination in local repo. These destinations are referred to as remotes in git. Each remote is simply a url where a hosted repository lives
+
+> Viewing Remotes :- 
+	-> Command :- git remote			//if no output then no remote repo is added
+	-> This command displays list of remotes(repositories on github)
+	-> To check that whether our local repo is linked with some github repo (remote repo) or not. 
+	
+
+	NOTE :- git remote -v will tell url also
+
+> Adding Remotes :- 
+	-> Command :- git remote add origin urlOfRepo
+	-> Origin is short name for the url, that means whenever I use name origin, I am referring to particular github url like an alias name
+	-> Origin is just conventional git remote name for a URL. When we clone github repo, the default name setup for us is called origin. We can change it if we want. 
+	-> For eg :- we can also do "git remote add myUrl urlOfRepo", so this means that whenever myUrl is used we are referring to this github repo. Commonly used name is origin.
+
+> Renaming Remotes :- 
+	-> Command :- git remote rename oldName newName
+
+> Removing Remote :- 
+	-> Command :- git remote remove nameOfRemote
+
+
+------------------ Pushing to github repo --------------------
+
+> Suppose we created a new repository in Github named GitPractice :- 
+	Then we have ;- 
+	1. create a new repository from command line :- 
+		git init
+		git add Readme.md
+		git commit -m "First commit"
+		git branch -M main
+		git remote add origin https://github.com/ManurajAg/GitPractice.git
+		git push -u origin main
+
+	2. push an existing repository from command line :- 
+		git remote add origin https://github.com/ManurajAg/GitPractice.git
+		git branch -M main
+		git push -u origin main
