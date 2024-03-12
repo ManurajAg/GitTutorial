@@ -132,7 +132,7 @@
 
 --------------------- Branches in GIT ------------------
 
-> As we do "git init" main branch is intialized which is known as master
+> As we do "git init" main branch is intialized which is known as master(master is created only after you do first commit)
 > When we need to create branch :- Suppose there are multiple developers involved in project, and one team is working on the some feature, if that team directly changes the code on master branch, then if some issue came then whole code will get affected, thus we will create a separate branch for that feature and when feature will be completely developed and tested then we can combine this branch with master branch
 > To create a branch :- git branch branchName
 > To create a branch and move to it :- git checkout -b branchName
@@ -219,8 +219,8 @@
 > It is complex as it does different things in different context
 > If we see commit, merge, rebase, these commands do not explicity move the branch, they are moved as a side effect of creating new commit. So to explicitly move branch we use reset
 > Options in reset :- 
-	-> --hard :- Moves the files both to working area and staging area
-	-> --mixed :- Moves the files only to staging area
+	-> --hard :- Removes the files from both working area and staging area
+	-> --mixed :- Removes the files only from staging area
 	-> --soft :- Does not move the files
 > Reset moves the current branch and optionally copies the data from repositories to working or staging areas
 > To move head to some commit :- git checkout hashValOfCommit

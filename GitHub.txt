@@ -67,6 +67,8 @@
 
 ------------------ Pushing to github repo --------------------
 
+NOTE :- In 2020, github renamed master branch as main , and that's why we do "git branch -m main" so that we can rename master branch to main
+
 > Suppose we created a new repository in Github named GitPractice :- 
 	Then we have ;- 
 	1. create a new repository from command line :- 
@@ -79,8 +81,65 @@
 
 	2. push an existing repository from command line :- 
 		git remote add origin https://github.com/ManurajAg/GitPractice.git
-
-
-
 		git branch -M main
 		git push -u origin main
+
+NOTE :- "git push" can push only one branch at a time
+
+NOTE :- If we create new repo and then :- "git push origin master" then, it will first create master branch and then push files to it, and again if we push something to master branch, then it will get updated. Thus we can say that when we use "git push origin master" we are actually creating a new branch named master and pushing changes to it.
+
+NOTE :- We can also push the changes in any branch to different branch in github. Eg :- git push <remote> <local-branch>:<remote-branch>. Lets take an example suppose you create a file index.txt in master branch in local PC and then push it to github repo's master branch, now in your local computer you created a new_branch and created branch.txt in it, and again push changes to github using :- git push origin new_branch (This will create new_branch in github repo) , now again in local PC we made a file name.txt and committed it, and now if we do :- "github push origin new_branch:master", This command will push changes made in new_branch to master branch of github repo. Kindly note that these changes will not be visible in new_branch of github repo.
+
+> What is push -u :- 
+	-> -u option allows us to set upstream of branch we are pushing
+	-> It can be seen as link between local branch and branch in github
+	-> "git push -u origin master", This command sets up the upstream of local master branch so that it tracks the master branch on origin repo.
+	-> Eg :- Suppose we have created a master branch in local pc, and if we do "git push -u origin master", then this will link master branch of local pc to master branch of github repo. now instead of using "git push origin master" you can simply use "git push".
+	-> NOTE :- Suppose we didn't perform "git push -origin master", and if we do "git push", it will automatically setup link between that branch in local pc and github repo.(if branch is not in repo, it will create it automatically)
+
+--------------- Remote Tracking ----------------
+
+> Suppose you cloned a git repository which has some initial commits, so currently if you will do "git log", you will see :-
+
+	commit 0d0e2b420bfa0eaf332553b67b1397314bc60005 (HEAD -> main, origin/main, origin/HEAD)
+	Author: ManurajAg <93424763+ManurajAg@users.noreply.github.com>
+	Date:   Tue Mar 12 22:49:08 2024 +0530
+	
+	    Initial commit
+	Here, main refers to local, while origin/main refers to github repo.
+	Now suppose we created a file in our local system and committed it and then we do "git log", we will see :- 
+	commit 3fd0e9727622941b102f6d1a7749fe5dddf22594 (HEAD -> main)
+	Author: ManurajAg <manu.ag002@gmail.com>
+	Date:   Tue Mar 12 22:53:54 2024 +0530
+
+	    Created Name file
+
+	commit 0d0e2b420bfa0eaf332553b67b1397314bc60005 (origin/main, origin/HEAD)
+	Author: ManurajAg <93424763+ManurajAg@users.noreply.github.com>
+	Date:   Tue Mar 12 22:49:08 2024 +0530
+
+	    Initial commit
+
+	Now you can see that origin/main which points to github repo is still on initial commit, while main which points to local repo is now moved to another commit.
+
+	Now if we do "git push" and then "git log"
+	commit 3fd0e9727622941b102f6d1a7749fe5dddf22594 (HEAD -> main, origin/main, origin/HEAD)
+	Author: ManurajAg <manu.ag002@gmail.com>
+	Date:   Tue Mar 12 22:53:54 2024 +0530
+
+	    Created Name file
+
+	commit 0d0e2b420bfa0eaf332553b67b1397314bc60005
+	Author: ManurajAg <93424763+ManurajAg@users.noreply.github.com>
+	Date:   Tue Mar 12 22:49:08 2024 +0530
+
+	    Initial commit
+
+	As you can see both main and origin/main again point to same commit
+	NOTE :- To see the name of remote branches available :- git branch -rk
+
+> Whenever you clone a github repository, even though it can have many branches but it will clone only the default branch
+
+> To see all the branches available at github repository :- git branch -r
+> To move to remote branch :- git checkout origin/branchName
+> git switch branchName :- When we run this command, first switch will check that whether there is any branch with given name in local repo, and if it is not found then it will check on remote(github repo) and if found there, it will automatically create same branch in local repo and link it with one in remote. Note :- If branch is not found then error will be given
