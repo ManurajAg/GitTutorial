@@ -138,8 +138,48 @@ NOTE :- We can also push the changes in any branch to different branch in github
 	As you can see both main and origin/main again point to same commit
 	NOTE :- To see the name of remote branches available :- git branch -rk
 
-> Whenever you clone a github repository, even though it can have many branches but it will clone only the default branch
+> Whenever you clone a github repository, even though it can have many branches but it will clone only the default branch(Suppose we have main, branch1,branch2,branch3 at github repo and if we clone it then only main will be clone to local repo)
 
 > To see all the branches available at github repository :- git branch -r
-> To move to remote branch :- git checkout origin/branchName
+> To move to remote branch :- git checkout origin/branchName		//Note :- This will not generate any branch in local system
 > git switch branchName :- When we run this command, first switch will check that whether there is any branch with given name in local repo, and if it is not found then it will check on remote(github repo) and if found there, it will automatically create same branch in local repo and link it with one in remote. Note :- If branch is not found then error will be given
+
+
+
+
+
+------------------------ Git Fetch --------------------------
+
+> Suppose we are working on project with other collaborators on github repo. One of your teammate pushed up the changes to master branch but your local repo doesn't know about the changes. So to get this we use "git fetch" & "git pull"
+
+> Git fetch and pull get those changes from github repo to your local repo
+
+> Git fetch will collect all the updated data from remote repository(Github repo) and move it to your local repository. In this changes are not automatically integrated into our working files
+
+	Command :- git fetch <remote>
+
+	Eg :- git fetch remote , this will fetch all changes from origin remote repository(all branches, history). Only updates tracking branches
+
+	-> We can also fetch specific branch :- git fetch <remote> <branch>
+
+	Eg :- git fetch origin master, this will retrieve latest info from master branch on remote repo. Now clone this remote repo in your PC, once cloned check "git status", you will see :- Your branch is up to date with 'origin/main'. Now go to remote repo and create index.txt in main branch and login.txt in login branch. Now if you will try to check "git status" in your local repo then you will see :- Your branch is up to date with 'origin/main'. It is because our local repo is not aware of changes, so to get aware of updates we will do "git fetch", and now if we do "git status" :- Your branch is behind 'origin/main' by 1 commit, and can be fast-forwarded. But if we do "git log" we will not be able to see any new commit and also if we do "ls" we will not be able to see index.txt in our main branch (it is because "git fetch" doesn't put data in your working directory, for that you need "git pull"). Now if we do "git switch login" , it will create new branch "login" in local repo and will also map it to the login branch in remote repo (thus login.txt file and latest commits will be visible). Now if we do "git switch registration", it will move to registration branch as well as link it. And now if we create register.txt in remote repo it will not be visible in our local repo. Now suppose we created a new branch "password" in remote repo and if we do "git branch -r" in local repo we will not be able to see password branch, but if we do "git fetch" and then "git branch -r" this will become visible as changes are fetched
+
+
+	Complete Example of git fetch :- Suppose we created a github repo and it has 3 branches main, login, register. 
+
+> Git pull will collect all the updated data from remote repo and move it to your local workspace. In this changes will be merged into the work we are doing
+
+
+---------------- GIT PULL --------------
+
+> It is somewhat similar to fetch but difference is :- Pull actually updates HEAD branch with whatever changes are retrieved from remote
+
+> Basically :- Git pull = Git fetch + Git merge
+
+> Command :- git pull <remote> <branch>
+
+	Here branch is our current branch. Eg :- git pull origin master will fetch latest information from origins master branch and merge those changes into our current branch
+
+> Pull can result in merge conflicts, thus needed to be resolved like normal merge
+
+> Eg :- Suppose we have a remote repo with 3 branches (main[files :- Readme.md,index.txt, manu.txt], login_fix [files :- Readme.md, index.txt, manu.txt, login_fix.txt] and registration [files:Readme.md,index.txt,manu.txt,registration.txt]).Clone the project in local repo and now suppose we created a new file(main.txt) in remote repo's main branch, and now if we go to local repo and do "ls" we will not be able to see that file, so we do "git fetch" to see the changes, and then we do "git pull origin main" and thus main.txt file also gets included in local repo. Now suppose we do some changes in main.txt in local repo and make a commit , and also we do some changes in main.txt via remote repo and now if we go to our local repo and do "git pull remote origin" then this will show that there is merge conflict, so we will manually solve the merge conflict and then we will make a commit and push changes
