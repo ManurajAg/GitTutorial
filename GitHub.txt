@@ -95,7 +95,7 @@ NOTE :- We can also push the changes in any branch to different branch in github
 	-> It can be seen as link between local branch and branch in github
 	-> "git push -u origin master", This command sets up the upstream of local master branch so that it tracks the master branch on origin repo.
 	-> Eg :- Suppose we have created a master branch in local pc, and if we do "git push -u origin master", then this will link master branch of local pc to master branch of github repo. now instead of using "git push origin master" you can simply use "git push".
-	-> NOTE :- Suppose we didn't perform "git push -origin master", and if we do "git push", it will automatically setup link between that branch in local pc and github repo.(if branch is not in repo, it will create it automatically)
+	-> NOTE :- Suppose we didn't perform "git push -u origin master", and if we do "git push", it will automatically setup link between that branch in local pc and github repo.(if branch is not in repo, it will create it automatically)
 
 --------------- Remote Tracking ----------------
 
@@ -136,7 +136,7 @@ NOTE :- We can also push the changes in any branch to different branch in github
 	    Initial commit
 
 	As you can see both main and origin/main again point to same commit
-	NOTE :- To see the name of remote branches available :- git branch -rk
+	NOTE :- To see the name of remote branches available :- git branch -r
 
 > Whenever you clone a github repository, even though it can have many branches but it will clone only the default branch(Suppose we have main, branch1,branch2,branch3 at github repo and if we clone it then only main will be clone to local repo)
 
@@ -144,7 +144,7 @@ NOTE :- We can also push the changes in any branch to different branch in github
 > To move to remote branch :- git checkout origin/branchName		//Note :- This will not generate any branch in local system
 > git switch branchName :- When we run this command, first switch will check that whether there is any branch with given name in local repo, and if it is not found then it will check on remote(github repo) and if found there, it will automatically create same branch in local repo and link it with one in remote. Note :- If branch is not found then error will be given
 
-
+> If you want your existing branch to track with remote branch :- Go to that exisiting branch and then do "git branch --track origin/remoteBranchName"
 
 
 
@@ -183,3 +183,105 @@ NOTE :- We can also push the changes in any branch to different branch in github
 > Pull can result in merge conflicts, thus needed to be resolved like normal merge
 
 > Eg :- Suppose we have a remote repo with 3 branches (main[files :- Readme.md,index.txt, manu.txt], login_fix [files :- Readme.md, index.txt, manu.txt, login_fix.txt] and registration [files:Readme.md,index.txt,manu.txt,registration.txt]).Clone the project in local repo and now suppose we created a new file(main.txt) in remote repo's main branch, and now if we go to local repo and do "ls" we will not be able to see that file, so we do "git fetch" to see the changes, and then we do "git pull origin main" and thus main.txt file also gets included in local repo. Now suppose we do some changes in main.txt in local repo and make a commit , and also we do some changes in main.txt via remote repo and now if we go to our local repo and do "git pull remote origin" then this will show that there is merge conflict, so we will manually solve the merge conflict and then we will make a commit and push changes
+
+
+------------- README ----------------
+
+> It is used to communicate important information about a repo which can include :- 
+	-> What the project does
+	-> How to run project
+	-> Why it is noteworthy
+	-> Who maintains project
+
+> Its extension md stands for markdown
+> If you put readme file in root of your project, github will automatically display it in repo's home page. It is like entry point to learn more about project
+
+> Visit :- https://markdown-it.github.io/
+
+
+----------- GITHUB GISTS ------------------
+
+> Simple way to share the code snippets and useful fragments to others
+> They are much easier to create but offer few features compared to normal git repo
+> Every gist is a git repository, means it can be cloned
+> They will be available on list of gists when you navigate to your gist home page
+> URL :- https://gist.github.com/
+> It can be public(accessible to all, people can search for it) or secret(They can't be searched but they are not private, if you send url of secret gist to a friend, they will be able to see it)
+> We need to give extension in name while creating gist
+> We cannot convert secret gist to public gist and vice versa
+
+
+------------ Github Pages ----------------
+
+> These are public webpages that are hosted and published by github
+> Allow to create a website by simply pushing your code to github
+> It is for static web pages (only html,css and js code no backend)
+> We get unlimited project sites in github
+> URL Pattern :- http://username.github.com/repo-name
+> Creating Github Pages :- 
+	1. Create repository (It should have index.html file)
+	2. Go to settings > Pages and select the branch to be deployed
+
+
+------------ Pull Request -------------------
+
+> It is feature of github and not of git
+> Allows developers to alert team members to work that needs to be reviewed
+> Allows to approve or reject the work on a given branch
+> Helps to facilitate discussion and feedback on specified commit
+> Suppose we have to work on a feature in our project, thus we created a new branch called feature, now after work on that feature is completed, before merging we will discuss about feature and provide feedback on specified commits, if it gets approved then branches are merged
+> It is basically merge. It is necessary because we know that main branch is heart of project, if it gets affected then whole project will  be affected, thus everyone can't be allowed to directly merge into main branch, thus pull request provide mechanism to approve/reject the merge
+> Workflow of pull request :- 
+	-> Do some work on feature branch locally
+	-> Push up feature branch to github
+	-> Open a pull request using the feature branch just pushed to github
+	-> Wait for PR to be approved and merged. 
+
+> Eg :- Suppose we have a branch registration which has some files in it, suppose we created a new file in this branch in our local repo and push it to remote repo, This will give us create pull request message, once we do this one can review pull request in github repo and if all good, will merge this to main branch
+
+> Resolving Conflicts :- 
+	Suppose we have a project repo whose main branch has index.txt, and we created a branch called bugfix from it. Now lets modify index.txt in bugfix branch, commit it. Now in the meantime someone has changed index.txt in main branch too. Now push from bugfix branch, and then create a pull request, This will show that there is some merge conflict. Now we will go to our local repo's main branch and pull the changes and then move to local repo's bugfix and do "git merge main", this will give us merge conflict which we will resolve manually, once it is resolved we will commit the changes and push it. Once pushed you will see in pull request that 2 branches can now be merged automatically and thus our pull request will be closed.
+
+------ Adding Collaborators and Apply branch protection rules ------------
+
+> To add collaborators :- Go to settings -> Collaborators -> Add people (It will send those people invite)
+
+> Protecting Branches :- We don't want anyone to commit to main branch without proper checks, for that we need to setup branch protection rules
+	-> To setup branch protection rules :- Go to settings -> branches -> Branch Protection rules -> Add rules accordingly
+
+
+----------- FORKING ---------------
+
+> When we have very large open source projects with lots of contributors, it is not possible to add all contributors manually, so instead we can do forking.
+> Forking allows anybody to try and make contribution for the repository
+> There is no permission needed, we make our own copy and then make a pull request
+> When we fork a repo we basically ask github to make my copy of repo
+> Eg :- Suppose we create one repo from Manuraj-AG github account and we cloned it(using git clone) to ManurajAg github account, now if we will try to push from ManurajAg, it will give error
+
+	remote: Permission to Manuraj-AG/git-fork.git denied to ManurajAg.
+fatal: unable to access 'https://github.com/Manuraj-AG/git-fork.git/': The requested URL returned error: 403
+
+> Now to contribute to the project you need to either a collaborator or to use fork
+
+------------------------------------------------------------------------------
+|	---------------------	   Fork		   --------------------	     |
+|	|   Organization    |	-------------->	   |     Personal     |	     |	Github
+|	|      Repo	    |	<--------------    |	  Repo	      |	     |
+|	---------------------     Pull request	   --------------------	     |	
+---------------	| ---------------------------------------- | -----------------
+		|					   v
+Local Machine	|					 Local Files
+		|					     |||
+		|					    /   \
+		|Upstream				   /     \	
+		------------------------------------> Master --> Feature 
+						      Branch(Merge)Branch
+  
+	NOTE :- Suppose after forking when we are working on feature and in the meantime the original repo of the project gets updated, so the upstream can be used to pull the changes
+	Command :- 
+		To set upstream -> git remote add upstream https://github.com/repoURL
+		To pull changes -> git pull upstream branchName	
+
+
+> Contributing to OPEN SOURCE :- First of all we will go to repository of open source project and then we will fork it, once we get our forked repo we can clone it to our local system and then we can do changes in our local repo which we can push to our forked repo. Now to share our work, we can make a pull request from my fork to original repo(Original owner of open source project can now verify the pull request and can either approve or reject the changes). To create a pull request go to your forked github repo and there you will see contribute, in that you will see create pull request
+
