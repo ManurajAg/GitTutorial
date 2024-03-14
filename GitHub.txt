@@ -285,3 +285,82 @@ Local Machine	|					 Local Files
 
 > Contributing to OPEN SOURCE :- First of all we will go to repository of open source project and then we will fork it, once we get our forked repo we can clone it to our local system and then we can do changes in our local repo which we can push to our forked repo. Now to share our work, we can make a pull request from my fork to original repo(Original owner of open source project can now verify the pull request and can either approve or reject the changes). To create a pull request go to your forked github repo and there you will see contribute, in that you will see create pull request
 
+
+------------------ Git Tags ------------------
+
+> Git tag main idea is that we can tag particular commit so we can label commits by creating a tag, a reference to a moment in time
+
+> In laymann terms, We assign some tag to commit so that when we want to go back to some commit we can simply refer to those tags instead of those commit hash Value
+
+> Tags are pointers that refer to particular point in git history.
+
+> They are most often used to mark version releases(eg :- v4.1.0 etc)
+
+> There are 2 types of tags :- 
+	1. Lightweight Tags :- They are just a name/label that points to particular commit 
+	2. Annotated Tags :-  They store extra meta data including author's name and email, the date and tagging message. They are stored as full objects in git database. It is the recommended way
+
+> Semantic Versioning :- 
+
+	-> It outlines the standardized versioning system for software releases
+	-> Provides consistent way for developers to give meaning to their software releases
+	-> Version consist of 3 numbers separated by periods (.) Eg :- 4.2.1 where 4 refers to any major change that is when there is some major change we change this, 2 refers to minor and 1 refers to patch
+	-> Typically initial release :- 1.0.0
+	-> Patch Release (1.0.1) :- It does not contain new features or significant changes. They typically signify bug fixes and other changes that do not impact how code is used
+	-> Minor Release(1.1.0) :- When new features or functionality are added, but project is still backward compatible. New functionality is optional and should not force users to rewrite their own code
+	-> Major Release(2.0.0) :- Signifies important changes that is no longer backward compatible. Feature may be removed or changes substantially
+	
+
+> Viewing Tags :- 
+	-> Command :- git tag		//This will print a list of all tags in the current repo
+	-> We can searh for tags that match a particular pattern by using git tag -l and then passing wildcard. Eg :- git tag -l "*beta*"	, this will print a list of tags that include beta in their name
+	
+	-> To view state of repo at particular tag, we can use "git checkout <tag>". This puts us in detached Head.
+
+	-> To check difference between 2 tags :- git diff v17.0.1 v17.0.0 where v17.0.0 and v17.0.1 are 2 different version
+
+> Creating lightweight tags :- 
+	-> Command :- git tag anyName 		//EG :- git tag v1.0.0
+	-> First make the changes you want and then commit those changes after that just do "git tag versionName", this will add tag to that commit
+
+
+> Creating Annotated Tags :- 
+	-> Command :- git tag -a versionName 	//This will then open an editor in which you can write information 
+	-> Command to see the added information :- git show versionName
+
+> Pushing tags to remote repo :- 
+	-> To push specific tag :- git push origin tagName
+	-> To push all tags :- git push origin --tags
+
+
+----------- REFLOGS ----------------
+
+> It is shortform for reference logs
+> These are just logs that git keeps us for as a record
+> Git keeps a record of when the tips of branches(that is when we switch from one branch to another) and other references were updated in repo.
+> We can update and view these reflogs using :- "git reflog"
+> Git reflogs keeps only local activity, they are not shared with collaborators.
+> They also expire in 90 days (which can be changed)
+> Accepts commands like show,expire,delete,exists
+> show is default subcommand
+> Commmand :- git reflog show branchName (This will show logs for the tip of given branch)
+> Reflogs are stored in :- .git folder > logs folder > HEAD
+> To see time based reflogs :- git reflog show branchName@{1.day.ago}		//This will show activities done in branchName 1 day ago
+	And we know to move to that we do :- git checkout branchName@{1.day.ago} 
+
+> Where can we use reflog :- Suppose we have a project in that we firstly created a feature file and committed it, now we implemented first feature in feature.txt and committed it and then we implemented second feature in feature.txt and committed it, now suppose we came to know that feature 2 is not good so we need to remove it and move back to feature1 commit, so we do "git reset commitHashCodeforfeature1 --hard" , but now our manager said that feature2 was good, but now since we have performed git reset we don't have hashcode of commit for feature 2, thus that commit is now lost (from git log), but if you will do git reflog branchName, that commit will be visible and thus we can reset to that commit
+
+--------- Aliases in GIT --------------
+
+> First go to the global config location :- git config --list --show-origin --global
+> Above will tell us where our global configuration file is, just go there and open config file, we will set aliases there
+> Open .gitconfig file ->
+	[alias]
+		s = status
+		cm = commit -m
+	So now instead of using "git status" we can use "git s" and instead of "git commit -m "msg" " we can do "git cm "msg" "
+
+> We can also set alias through cmd :- Eg :- git config --global alais.br "branch" (Now we can use "git br" instead of "git branch")
+
+
+------------------------------- Thankyou --------------------------------
